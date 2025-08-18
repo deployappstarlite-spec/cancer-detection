@@ -581,7 +581,43 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
         
-        # Cell information
+        with info_col2:
+                    st.markdown(f"""
+                    <div class="prediction-box">
+                        <h4>🔍 Morphology (expected)</h4>
+                        <ul>
+                            {"".join([f"<li>{f}</li>" for f in cell_info['morphology_features']])}
+                        </ul>
+                    </div>
+                    """, unsafe_allow_html=True)
+            else:  # benign only
+                st.markdown(f"""
+                <div class="prediction-box">
+                    <h4>📚 Benign Overview</h4>
+                    <p>{cell_info['note']}</p>
+                    <p><em>{cell_info['recommendation']}</em></p>
+                </div>
+                """, unsafe_allow_html=True)
+else:  # benign only
+                st.markdown(f"""
+                <div class="prediction-box">
+                    <h4>📚 Benign Overview</h4>
+                    <p>{cell_info['note']}</p>
+                    <p><em>{cell_info['recommendation']}</em></p>
+                </div>
+                """, unsafe_allow_html=True)
+                # Footer
+    st.markdown("---")
+    st.markdown("""
+    <div style="text-align: center; padding: 2rem; background: rgba(20, 20, 40, 0.5); border-radius: 15px; margin-top: 2rem;">
+        <p style="color: #667eea; font-size: 0.9rem;">
+            ⚠️ <strong>For Research & Educational Use Only</strong><br>
+            Always consult healthcare professionals for medical decisions
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Cell information
         if predicted_cell_type in DYNAMIC_CELL_INFO:
             st.markdown("---")
             st.markdown("## 📚 Cell Information")
@@ -602,7 +638,16 @@ def main():
                         </ul>
                     </div>
                     """, unsafe_allow_html=True)
-                    else:  # benign only
+                with info_col2:
+                    st.markdown(f"""
+                    <div class="prediction-box">
+                        <h4>🔍 Morphology (expected)</h4>
+                        <ul>
+                            {"".join([f"<li>{f}</li>" for f in cell_info['morphology_features']])}
+                        </ul>
+                    </div>
+                    """, unsafe_allow_html=True)
+            else:  # benign only
                 st.markdown(f"""
                 <div class="prediction-box">
                     <h4>📚 Benign Overview</h4>
@@ -610,16 +655,6 @@ def main():
                     <p><em>{cell_info['recommendation']}</em></p>
                 </div>
                 """, unsafe_allow_html=True)
-                # Footer
-    st.markdown("---")
-    st.markdown("""
-    <div style="text-align: center; padding: 2rem; background: rgba(20, 20, 40, 0.5); border-radius: 15px; margin-top: 2rem;">
-        <p style="color: #667eea; font-size: 0.9rem;">
-            ⚠️ <strong>For Research & Educational Use Only</strong><br>
-            Always consult healthcare professionals for medical decisions
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
