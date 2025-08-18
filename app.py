@@ -585,20 +585,41 @@ def main():
         if predicted_cell_type in DYNAMIC_CELL_INFO:
             st.markdown("---")
             st.markdown("## 📚 Cell Information")
-            
+
             cell_info = DYNAMIC_CELL_INFO[predicted_cell_type]["base_info"]
-            
-            info_col1, info_col2 = st.columns(2)
-            
-            with info_col1:
+
+            if "stage" in cell_info:  # malignant only
+                info_col1, info_col2 = st.columns(2)
+                with info_col1:
+                    st.markdown(f"""
+                    <div class="prediction-box">
+                        <h4>📊 {predicted_cell_type} Overview</h4>
+                        <p><strong>Stage:</strong> {cell_info['stage']}</p>
+                        <p><strong>Presence:</strong> {cell_info['presence']}</p>
+                        <p><strong>Typical Immunophenotype:</strong></p>
+                        <ul>
+                            {"".join([f"<li>{m}</li>" for m in cell_info['typical_immunophenotype']])}
+                        </ul>
+                    </div>
+                    """, unsafe_allow_html=True)
+                with info_col2:
+                    st.markdown(f"""
+                    <div class="prediction-box">
+                        <h4>🔍 Morphology (expected)</h4>
+                        <ul>
+                            {"".join([f"<li>{f}</li>" for f in cell_info['morphology_features']])}
+                        </ul>
+                    </div>
+                    """, unsafe_allow_html=True)
+            else:  # benign only
                 st.markdown(f"""
                 <div class="prediction-box">
-                    <h4>📊 {predicted_cell_type} Overview</h4>
-                    
-                    
+                    <h4>📚 Benign Overview</h4>
+                    <p>{cell_info['note']}</p>
+                    <p><em>{cell_info['recommendation']}</em></p>
                 </div>
                 """, unsafe_allow_html=True)
-            
+                
             with info_col2:
                 st.markdown(f"""
                 <div class="prediction-box">
