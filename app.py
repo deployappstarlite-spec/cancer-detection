@@ -590,7 +590,7 @@ def main():
                         </ul>
                     </div>
                     """, unsafe_allow_html=True)
-            else:  # benign only
+            else: # benign only
                 st.markdown(f"""
                 <div class="prediction-box">
                     <h4>📚 Benign Overview</h4>
