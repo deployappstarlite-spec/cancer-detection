@@ -602,7 +602,6 @@ def main():
                         </ul>
                     </div>
                     """, unsafe_allow_html=True)
-                with info_col2:
                     st.markdown(f"""
                     <div class="prediction-box">
                         <h4>🔍 Morphology (expected)</h4>
@@ -619,8 +618,6 @@ def main():
                     <p><em>{cell_info['recommendation']}</em></p>
                 </div>
                 """, unsafe_allow_html=True)
-                
-            with info_col2:
                 st.markdown(f"""
                 <div class="prediction-box">
                     <h4>🔍 Morphology (expected)</h4>
