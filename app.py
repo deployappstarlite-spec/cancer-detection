@@ -602,15 +602,7 @@ def main():
                         </ul>
                     </div>
                     """, unsafe_allow_html=True)
-                    st.markdown(f"""
-                    <div class="prediction-box">
-                        <h4>🔍 Morphology (expected)</h4>
-                        <ul>
-                            {"".join([f"<li>{f}</li>" for f in cell_info['morphology_features']])}
-                        </ul>
-                    </div>
-                    """, unsafe_allow_html=True)
-            else:  # benign only
+                    else:  # benign only
                 st.markdown(f"""
                 <div class="prediction-box">
                     <h4>📚 Benign Overview</h4>
@@ -618,16 +610,7 @@ def main():
                     <p><em>{cell_info['recommendation']}</em></p>
                 </div>
                 """, unsafe_allow_html=True)
-                st.markdown(f"""
-                <div class="prediction-box">
-                    <h4>🔍 Morphology (expected)</h4>
-                    <ul>
-                        {"".join([f"<li>{feature}</li>" for feature in cell_info['morphology_features']])}
-                    </ul>
-                </div>
-                """, unsafe_allow_html=True)
-    
-    # Footer
+                # Footer
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; padding: 2rem; background: rgba(20, 20, 40, 0.5); border-radius: 15px; margin-top: 2rem;">
