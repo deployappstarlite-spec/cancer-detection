@@ -594,8 +594,8 @@ def main():
                 st.markdown(f"""
                 <div class="prediction-box">
                     <h4>📊 {predicted_cell_type} Overview</h4>
-                    <p><strong>Normal Range:</strong> {cell_info['normal_range']}</p>
-                    <p><strong>Function:</strong> {cell_info['primary_function']}</p>
+                    
+                    
                 </div>
                 """, unsafe_allow_html=True)
             
