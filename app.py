@@ -598,7 +598,6 @@ def main():
                     <p><em>{cell_info['recommendation']}</em></p>
                 </div>
                 """, unsafe_allow_html=True)
-else:  # benign only
                 st.markdown(f"""
                 <div class="prediction-box">
                     <h4>📚 Benign Overview</h4>
