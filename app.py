@@ -175,78 +175,180 @@ st.markdown("""
 
 # Enhanced cell classification
 BLOOD_CELL_CLASSES = {
-    0: "Malignant (early pre-B) lymphoblast",
-    1: "Malignant (pre-B) lymphoblast",
-    2: "Malignant (pro-B) lymphoblast",
+    0: "Malignant (early pre-B)",
+    1: "Malignant (pre-B)", 
+    2: "Malignant (pro-B)",
     3: "Benign"
 }
 
 # Dynamic medical information
+
 DYNAMIC_CELL_INFO = {
-    "Malignant (pro-B) lymphoblast": {
-        "base_info": {
-            "stage": "Earliest B-lineage (pro-B / early precursor) in B-ALL",
-            "presence": "Not present in normal peripheral blood",
-            "typical_immunophenotype": [
-                "CD19+, CD22+, PAX5+",
-                "TdT+, CD34+",
-                "CD10− or dim",
-                "cμ− (no cytoplasmic μ), no surface Ig"
-            ],
-            "morphology_features": [
-                "High N:C ratio",
-                "Fine/loose chromatin",
-                "0–2 nucleoli",
-                "Scant basophilic cytoplasm"
-            ]
-        },
-        "dynamic_suggestions": []
-    },
-    "Malignant (early pre-B) lymphoblast": {
-        "base_info": {
-            "stage": "Early pre-B lymphoblast (overlaps with pro-B terminology)",
-            "presence": "Not present in normal peripheral blood",
-            "typical_immunophenotype": [
-                "CD19+, CD22+, PAX5+",
-                "TdT+, CD34+",
-                "CD10+ (CALLA) usually present",
-                "cμ− to weak, no surface Ig"
-            ],
-            "morphology_features": [
-                "Round/oval nucleus",
-                "Fine chromatin with 1–2 nucleoli",
-                "Scant to moderate cytoplasm"
-            ]
-        },
-        "dynamic_suggestions": []
-    },
-    "Malignant (pre-B) lymphoblast": {
-        "base_info": {
-            "stage": "Pre-B (common B-ALL) — later precursor than pro-/early pre-B",
-            "presence": "Not present in normal peripheral blood",
-            "typical_immunophenotype": [
-                "CD19+, CD22+, PAX5+, CD10+ (CALLA)",
-                "TdT+, variable CD34",
-                "Cytoplasmic μ chain positive (cμ+)",
-                "No surface immunoglobulin"
-            ],
-            "morphology_features": [
-                "Round nucleus with fine chromatin",
-                "Visible nucleoli",
-                "Moderate cytoplasm (more than earliest blasts)",
-                "High N:C ratio, but less extreme than pro-B"
-            ]
-        },
-        "dynamic_suggestions": []
-    },
     "Benign": {
         "base_info": {
-            "note": "No malignant blast features detected; model output suggests benign.",
-            "recommendation": "If clinical suspicion persists, correlate with CBC, smear review, and further testing."
+            "normal_range": "50-70% of total WBC",
+            "primary_function": "First-line defense against bacterial infections",
+            "key_features": [
+                "Multi-lobed nucleus (3–5 segments)",
+                "Fine cytoplasmic granules",
+                "Most abundant circulating WBC"
+            ]
         },
-        "dynamic_suggestions": []
+        "dynamic_suggestions": [
+            {
+                "condition": "elevated_confidence",
+                "insights": [
+                    "Neutrophil morphology is clear with multi-lobed nucleus",
+                    "Granules are evenly distributed",
+                    "Cells appear mature and segmented",
+                    "Consistent with normal neutrophilic lineage"
+                ]
+            },
+            {
+                "condition": "moderate_confidence",
+                "insights": [
+                    "Nuclear lobulation partially visible",
+                    "Granulation pattern consistent with neutrophils",
+                    "Segmentation may require higher resolution",
+                    "Consider correlation with CBC for confirmation"
+                ]
+            },
+            {
+                "condition": "low_confidence",
+                "insights": [
+                    "Cell segmentation difficult to assess",
+                    "Granule visibility is poor",
+                    "Image may show immature granulocytes",
+                    "Recommend expert review if clinical suspicion persists"
+                ]
+            }
+        ]
+    },
+    "Malignant (pro-B)": {
+        "base_info": {
+            "normal_range": "Not applicable (malignant lymphoblasts)",
+            "primary_function": "None – immature malignant precursors",
+            "key_features": [
+                "Large lymphoblasts",
+                "High nucleus-to-cytoplasm ratio",
+                "Round nuclei with open chromatin",
+                "Scant cytoplasm, no granules"
+            ]
+        },
+        "dynamic_suggestions": [
+            {
+                "condition": "elevated_confidence",
+                "insights": [
+                    "Large lymphoblasts with high N:C ratio observed",
+                    "Open chromatin pattern suggests immaturity",
+                    "No granules detected – consistent with blast morphology",
+                    "Presence in blood suggests acute lymphoblastic leukemia"
+                ]
+            },
+            {
+                "condition": "moderate_confidence",
+                "insights": [
+                    "Blast morphology present but image not fully clear",
+                    "Some overlap with other immature cells",
+                    "Cytoplasmic boundaries difficult to assess",
+                    "Consider immunophenotyping for confirmation"
+                ]
+            },
+            {
+                "condition": "low_confidence",
+                "insights": [
+                    "Nuclear details unclear at this resolution",
+                    "Cannot rule out other blast types",
+                    "Additional staining recommended",
+                    "Expert morphologist review advised"
+                ]
+            }
+        ]
+    },
+    "Malignant (early pre-B)": {
+        "base_info": {
+            "normal_range": "Not applicable",
+            "primary_function": "None – immature malignant precursors",
+            "key_features": [
+                "Medium-sized blasts",
+                "Very high nucleus-to-cytoplasm ratio",
+                "Scant cytoplasm, no granules",
+                "Faint nucleoli may be visible"
+            ]
+        },
+        "dynamic_suggestions": [
+            {
+                "condition": "elevated_confidence",
+                "insights": [
+                    "Cells with very high N:C ratio observed",
+                    "Scant cytoplasm supports immature blast identity",
+                    "No granules detected – excludes myeloid cells",
+                    "Suggestive of early pre-B lymphoblasts"
+                ]
+            },
+            {
+                "condition": "moderate_confidence",
+                "insights": [
+                    "Blast morphology partially visible",
+                    "Cytoplasmic definition limited",
+                    "Nucleoli presence uncertain",
+                    "Correlation with flow cytometry recommended"
+                ]
+            },
+            {
+                "condition": "low_confidence",
+                "insights": [
+                    "Image insufficient to confirm pre-B stage",
+                    "Overlaps with other immature lymphoid cells",
+                    "Higher magnification suggested",
+                    "Manual review advised"
+                ]
+            }
+        ]
+    },
+    "Malignant (pre-B)": {
+        "base_info": {
+            "normal_range": "Not applicable",
+            "primary_function": "None – immature malignant precursors",
+            "key_features": [
+                "Immature lymphoblast morphology",
+                "More cytoplasm than pro-B but still scant",
+                "Prominent nucleoli possible",
+                "No cytoplasmic granules"
+            ]
+        },
+        "dynamic_suggestions": [
+            {
+                "condition": "elevated_confidence",
+                "insights": [
+                    "Blasts with increased cytoplasm observed",
+                    "Prominent nucleoli visible",
+                    "No granules consistent with lymphoid lineage",
+                    "Suggestive of pre-B lymphoblastic leukemia"
+                ]
+            },
+            {
+                "condition": "moderate_confidence",
+                "insights": [
+                    "Blast morphology seen but nucleoli unclear",
+                    "Cytoplasmic volume requires confirmation",
+                    "Overlap with pro-B morphology possible",
+                    "Ancillary tests recommended for confirmation"
+                ]
+            },
+            {
+                "condition": "low_confidence",
+                "insights": [
+                    "Cell boundaries poorly defined",
+                    "Nuclear morphology not distinct",
+                    "Cannot exclude other immature cells",
+                    "Further diagnostic workup needed"
+                ]
+            }
+        ]
     }
 }
+
 
 def calculate_image_hash(image_bytes):
     """Calculate unique hash for image to ensure different responses"""
@@ -467,7 +569,7 @@ def main():
         
         with col1:
             st.markdown("### 📸 Input Image")
-            st.image(image, caption="Blood Cell Sample", use_container_width=True)
+            st.image(image, caption="Blood Cell Sample", use_column_width=True)
             
             # Image quality metrics
             st.markdown("### 📊 Image Quality")
@@ -581,31 +683,35 @@ def main():
                 </div>
                 """, unsafe_allow_html=True)
         
-        with info_col2:
-                    st.markdown(f"""
-                    <div class="prediction-box">
-                        <h4>🔍 Morphology (expected)</h4>
-                        <ul>
-                            {"".join([f"<li>{f}</li>" for f in cell_info['morphology_features']])}
-                        </ul>
-                    </div>
-                    """, unsafe_allow_html=True)
-            else:
+        # Cell information
+        if predicted_cell_type in DYNAMIC_CELL_INFO:
+            st.markdown("---")
+            st.markdown("## 📚 Cell Information")
+            
+            cell_info = DYNAMIC_CELL_INFO[predicted_cell_type]["base_info"]
+            
+            info_col1, info_col2 = st.columns(2)
+            
+            with info_col1:
                 st.markdown(f"""
                 <div class="prediction-box">
-                    <h4>📚 Benign Overview</h4>
-                    <p>{cell_info['note']}</p>
-                    <p><em>{cell_info['recommendation']}</em></p>
+                    <h4>📊 {predicted_cell_type} Overview</h4>
+                    <p><strong>Normal Range:</strong> {cell_info['normal_range']}</p>
+                    <p><strong>Function:</strong> {cell_info['primary_function']}</p>
                 </div>
                 """, unsafe_allow_html=True)
+            
+            with info_col2:
                 st.markdown(f"""
                 <div class="prediction-box">
-                    <h4>📚 Benign Overview</h4>
-                    <p>{cell_info['note']}</p>
-                    <p><em>{cell_info['recommendation']}</em></p>
+                    <h4>🔍 Key Features</h4>
+                    <ul>
+                        {"".join([f"<li>{feature}</li>" for feature in cell_info['key_features']])}
+                    </ul>
                 </div>
                 """, unsafe_allow_html=True)
-                # Footer
+    
+    # Footer
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; padding: 2rem; background: rgba(20, 20, 40, 0.5); border-radius: 15px; margin-top: 2rem;">
@@ -615,63 +721,6 @@ def main():
         </p>
     </div>
     """, unsafe_allow_html=True)
-
-with info_col2:
-                    st.markdown(f"""
-                    <div class="prediction-box">
-                        <h4>🔍 Morphology (expected)</h4>
-                        <ul>
-                            {"".join([f"<li>{f}</li>" for f in cell_info['morphology_features']])}
-                        </ul>
-                    </div>
-                    """, unsafe_allow_html=True)
-            else:  # benign only
-                st.markdown(f"""
-                <div class="prediction-box">
-                    <h4>📚 Benign Overview</h4>
-                    <p>{cell_info['note']}</p>
-                    <p><em>{cell_info['recommendation']}</em></p>
-                </div>
-                """, unsafe_allow_html=True)
-
-            # Cell information
-            if predicted_cell_type in DYNAMIC_CELL_INFO:
-                st.markdown("---")
-                st.markdown("## 📚 Cell Information")
-
-                cell_info = DYNAMIC_CELL_INFO[predicted_cell_type]["base_info"]
-
-                if "stage" in cell_info:  # malignant only
-                    info_col1, info_col2 = st.columns(2)
-                    with info_col1:
-                        st.markdown(f"""
-                        <div class="prediction-box">
-                            <h4>📊 {predicted_cell_type} Overview</h4>
-                            <p><strong>Stage:</strong> {cell_info['stage']}</p>
-                            <p><strong>Presence:</strong> {cell_info['presence']}</p>
-                            <p><strong>Typical Immunophenotype:</strong></p>
-                            <ul>
-                                {"".join([f"<li>{m}</li>" for m in cell_info['typical_immunophenotype']])}
-                            </ul>
-                        </div>
-                        """, unsafe_allow_html=True)
-                    with info_col2:
-                        st.markdown(f"""
-                        <div class="prediction-box">
-                            <h4>🔍 Morphology (expected)</h4>
-                            <ul>
-                                {"".join([f"<li>{f}</li>" for f in cell_info['morphology_features']])}
-                            </ul>
-                        </div>
-                        """, unsafe_allow_html=True)
-                else:  # benign only
-                    st.markdown(f"""
-                    <div class="prediction-box">
-                        <h4>📚 Benign Overview</h4>
-                        <p>{cell_info['note']}</p>
-                        <p><em>{cell_info['recommendation']}</em></p>
-                    </div>
-                    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
