@@ -467,7 +467,7 @@ def main():
         
         with col1:
             st.markdown("### 📸 Input Image")
-            st.image(image, caption="Blood Cell Sample", use_column_width=True)
+            st.image(image, caption="Blood Cell Sample", use_container_width=True)
             
             # Image quality metrics
             st.markdown("### 📊 Image Quality")
@@ -602,9 +602,9 @@ def main():
             with info_col2:
                 st.markdown(f"""
                 <div class="prediction-box">
-                    <h4>🔍 Key Features</h4>
+                    <h4>🔍 Morphology (expected)</h4>
                     <ul>
-                        {"".join([f"<li>{feature}</li>" for feature in cell_info['key_features']])}
+                        {"".join([f"<li>{feature}</li>" for feature in cell_info['morphology_features']])}
                     </ul>
                 </div>
                 """, unsafe_allow_html=True)
